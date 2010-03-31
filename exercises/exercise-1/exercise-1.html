@@ -7,14 +7,16 @@
 		
 		<script type="text/javascript">
 			/* Step 1: The JavaScript. Using jQuery
-				1.) Get all elements with a class of collapse
-			
+				1.) Get all elements with a class of collapsed-list
+				2.) Inside each of those get all the B elements that are the first child of an LI
+				3.) Add an onclick handler on each of those B elements that toggles the class name of closed on the parent LI node
 			*/
 		</script>
 		
 		<style type="text/css">
-			/*	Step 1: Create the CSS styles
-					hide all UL and OL elements that are children of a container with a class of closed
+			/*	Step 2: Create the CSS styles
+					hide all UL and OL elements that are children of a container with a class
+					of closed (which itself is a child of a container with a class of collapsed-list)
 			*/
 		</style>
 	</head>
@@ -24,32 +26,32 @@
 			<div id="head"></div>
 			<div id="main">
 				
-				<ul class="collapse">
-					<li>Chapter 1
+				<ul class="collapsed-list">
+					<li><b>Chapter 1</b>
 						<ul>
-							<li>Section 1.1</li>
-							<li>Section 1.2
+							<li><b>Section 1.1</b></li>
+							<li><b>Section 1.2</b>
 								<ul>
-									<li>Sub-section 1.2.1</li>
+									<li><b>Sub-section 1.2.1</b></li>
 								</ul>
 							</li>
-							<li>Section 1.3</li>
+							<li><b>Section 1.3</b></li>
 						</ul>
 					</li>
-					<li>Chapter 2</li>
-					<li>Chapter 3
+					<li><b>Chapter 2</b></li>
+					<li><b>Chapter 3</b>
 						<ul>
-							<li>Section 3.1</li>
-							<li>Section 3.2
+							<li><b>Section 3.1</b></li>
+							<li><b>Section 3.2</b>
 								<ul>
-									<li>Sub-section 3.2.1</li>
+									<li><b>Sub-section 3.2.1</b></li>
 								</ul>
 							</li>
-							<li>Section 3.3</li>
+							<li><b>Section 3.3</b></li>
 						</ul>						
 					</li>
-					<li>Chapter 4</li>
-					<li>Chapter 5</li>
+					<li><b>Chapter 4</b></li>
+					<li><b>Chapter 5</b></li>
 				</ul>
 					
 			</div>
