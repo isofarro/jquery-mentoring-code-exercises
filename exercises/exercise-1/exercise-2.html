@@ -2,22 +2,31 @@
 <html lang="en-GB">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Exercise 1</title>
+		<title>Exercise 2</title>
 		
 		<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
 		<script type="text/javascript">
-			/* Step 1: The JavaScript. Using jQuery
-				1.) Create a function that gets called when the DOM is ready, 
-						and does the following:
-				2.) Get all B elements that are the first child of an LI which
-				 		is inside a container with a class of collapsed-list
-				3.) Add an onclick handler on each of those B elements that 
-						toggles the class name of closed on the parent LI node
-			*/
 			$(function($) {
 				$('.collapsed-list li b').click(
 					function(e) {
-						$(this).parent().toggleClass('closed');
+						var listItem = this.parentNode;
+						/*
+							Step 1:
+							Without using jQuery's functions, write some logic to do the following
+							on the listItem DOM Node that emulates the following:
+							$(this.parentNode).toggleClass('closed');
+							The first line of this function (above) already gets a reference, so
+							we just need to complete the 'toggle' logic:
+							
+							Write logic that toggles the closed class on the listItem node:
+								* Use the JavaScript string functions match and replace.
+								* if the class attribute doesn't contain 'closed' add it
+								* if the class attribute does contain 'closed' then remove it
+								* if there is no class attribute, create one with 'closed' in it
+									
+						*/
+
+
 					}
 				);
 			});
@@ -40,14 +49,6 @@
 				float: left;
 			}
 			
-			/*	Step 2: Create the CSS styles
-					1.) Style all containers with a class of collapsed-list with a background 
-						colour of #ccc, and a thin black border
-					2.) Style all the li elements within a container of class collapsed-list with a list style type of circle
-					3.) Style all the li elements with a class of closed within a container of a class collapsed-list with a list style type of disc 
-					4.) hide all UL and OL elements that are children of a container with a class
-					of closed (which itself is a child of a container with a class of collapsed-list)
-			*/
 			
 			.collapsed-list {
 				background-color: #ccc;
