@@ -2,39 +2,36 @@
 <html lang="en-GB">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Exercise 3: toggle without using jQuery</title>
+		<title>Exercise 2: emulate toggleClass()</title>
 		
 		<script type="text/javascript" src="../jquery-1.4.2.min.js"></script>
 		<script type="text/javascript">
+			/* Step 1: The JavaScript. Using jQuery, emulate what the toggleClass() 
+				method does using the jQuery methods hasClass(), addClass() and 
+				removeClass()
+				
+				Below in the click handler function, listItem references the LI parent
+				element. Emulate the toggleClass function by writing code that does
+				the following:
+				
+				1.) Check whether the class name contains a class called 'closed'
+				2.) If it does, remove the class
+				3.) If it doesn't, add the class 'closed'
+
+			*/
 			$(function($) {
 				$('.collapsed-list li b').click(
 					function(e) {
-						var listItem = this.parentNode;
-						/*
-							Step 1:
-							Without using jQuery's functions, write some logic to do the following
-							on the listItem DOM Node that emulates the following:
-							$(this.parentNode).toggleClass('closed');
-							The first line of this function (above) already gets a reference, so
-							we just need to complete the 'toggle' logic:
-							
-							Write logic that toggles the closed class on the listItem node:
-								* Use the JavaScript string functions match and replace.
-								* if the class attribute doesn't contain 'closed' add it
-								* if the class attribute does contain 'closed' then remove it
-								* if there is no class attribute, create one with 'closed' in it
-									
-						*/
+						var listItem = $(this).parent();
 
-						if (listItem.className) {
-							if (listItem.className.match(/\bclosed\b/)) {
-								listItem.className = listItem.className.replace(/\bclosed\b/, '');
-							} else {
-								listItem.className += ' closed';
-							}
+						// Add you code here						
+						if (listItem.hasClass('closed')) {
+							listItem.removeClass('closed');
 						} else {
-							listItem.className = 'closed';
+							listItem.addClass('closed');
 						}
+						
+
 					}
 				);
 			});
@@ -57,6 +54,14 @@
 				float: left;
 			}
 			
+			/*	Step 2: Create the CSS styles
+					1.) Style all containers with a class of collapsed-list with a background 
+						colour of #ccc, and a thin black border
+					2.) Style all the li elements within a container of class collapsed-list with a list style type of circle
+					3.) Style all the li elements with a class of closed within a container of a class collapsed-list with a list style type of disc 
+					4.) hide all UL and OL elements that are children of a container with a class
+					of closed (which itself is a child of a container with a class of collapsed-list)
+			*/
 			
 			.collapsed-list {
 				background-color: #ccc;
