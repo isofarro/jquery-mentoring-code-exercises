@@ -14,6 +14,13 @@
 				3.) Add an onclick handler on each of those B elements that 
 						toggles the class name of closed on the parent LI node
 			*/
+			$(function($) {
+				$('.collapsed-list li b').click(
+					function(e) {
+						$(this).parent().toggleClass('closed');
+					}
+				);
+			});
 			
 		</script>
 		
@@ -40,6 +47,15 @@
 					of closed (which itself is a child of a container with a class of collapsed-list)
 			*/
 			
+			.collapsed-list {
+				background-color: #ccc;
+				border: 1px solid Black;
+			}
+			
+			.closed ul,
+			.closed ol {
+				display: none;
+			}
 			
 		</style>
 	</head>
