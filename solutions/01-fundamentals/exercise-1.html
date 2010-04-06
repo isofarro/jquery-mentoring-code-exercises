@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-GB">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Fundamentals: Exercise 1</title>
+		
+		<style type="text/css">
+			#page {
+				width: 750px;
+				margin: 0 auto;
+			}
+			
+			#main {
+				width: 500px;
+				float: left;
+			}
+			
+			#related {
+				width: 250px;
+				float: left;
+			}
+			
+			ul li {
+				list-style-type: circle;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="page">
+			<div id="head">
+				<p>Using and creating lists and objects, using dot and square bracket syntax. Loops, lots of loops, and referencing data in objects.</p>
+			</div>
+			<div id="main">
+				<p>These are the people we know about:</p>
+				<ul id="complete"></ul>				
+			</div>
+			<div id="related">
+				<p>These are Jedi:</p>
+				<ul id="jedi"></ul>
+
+				<p>These are Vader's family members:</p>
+				<ul id="family"></ul>
+			</div>
+			<div id="foot"></div>
+		</div>
+	
+	</body>
+	
+	<script type="text/javascript">
+	// Simple 'modern' add event handler, using object detection
+	function addEvent(node, event, func) {
+		if (node.addEventListener) {
+			node.addEventListener(event, func, false);
+		} else if (node.attachEvent) {
+			node.attachEvent('on'+event, func);
+		} else {
+			if (typeof node['on' + event] == 'function') {
+				var oldFunc = node['on' + event];
+				node['on' + event] = function() {
+					oldFunc();
+					func();
+				}
+			} else {
+				node['on' + event] = func;
+			}
+		} 
+	}
+	</script>
+	
+	<script type="text/javascript">
+		
+		function initCast(e) {
+			/* The list of Star Wars characters, with some added details */
+			var characters = [
+				{
+					key:  'leia',
+					name: 'Leia Organa',
+					family: {
+						parents:  [ 'vader', 'padme' ],
+						husband:  [ 'solo' ],
+						siblings: [ 'luke' ]
+					}
+				},
+				{
+					key:  'luke',
+					name: 'Luke Skywalker',
+					jedi: true,
+					family: {
+						parents:  [ 'vader', 'padme' ],
+						siblings: [ 'leia' ]
+					}
+				},
+				{
+					key:  'vader',
+					name: 'Darth Vader',
+					sith: true,
+					family: {
+						parents:  [ 'shmi'  ],
+						wife:     [ 'padme' ],
+						children: [ 'luke', 'leia' ]
+					}
+				},
+				{
+					key:  'obiwan',
+					name: 'Obi-Wan Kenobi',
+					jedi: true
+				},
+				{
+					key:  'owen',
+					name: 'Owen Lars'
+				},
+				{
+					key:  'beru',
+					name: 'Beru Lars'
+				},
+				{
+					key:  'shmi',
+					name: 'Shmi Skywalker',
+					family: {
+						children: [ 'vader' ]
+					}
+				},
+				{
+					key:  'padme',
+					name: 'Padmé Amidala',
+					family: {
+						husband:  [ 'vader' ],
+						children: [ 'luke', 'leia' ]
+					}
+				},
+				{
+					key: 'solo',
+					name: 'Han Solo',
+					family: {
+						wife: [ 'leia' ]
+					}
+				},
+				{
+					key:  'yoda',
+					name: 'Yoda',
+					jedi: true
+				}
+			];
+
+			// List out all the characters we have
+			listPeople('complete', characters);
+			
+			/*
+				Step 1: Get all the Jedi
+				 * Have a look above at the characters data structure. It is an array of people
+				 * Create a new array called jedi
+				 * Loop through each of the items in the characters array
+				 * if an item has a property of jedi, and a value of true, add them to the jedi array
+				 * then call: listPeople('jedi', jedi);
+			*/
+			
+			var i, j, character;
+			var jedi = [];
+			for(i=0, j=characters.length; i<j; i++) {
+				character = characters[i];
+				if (character && character.jedi) {
+					jedi.push(character);
+				}
+			}
+			listPeople('jedi', jedi);			
+			
+
+			/*
+				Step 2: Create an object called characterHash (for future lookups)
+					* Loop through each of the charaters in the array above
+					* Take each character, and use the key value as the property name of that
+					  character, and add then to the characterHash object
+			*/
+			var characterHash={};
+			for(i=0, j=characters.length; i < j; i++) {
+				character = characters[i];
+				characterHash[character.key] = character;
+			}
+			
+			/* 
+				Step 3: Find Vader's relatives
+					* Create a new array called relatives
+				  * Get the family details of vader from the characterHash 
+					* add those objects to relatives
+					* call listPeople('family', relatives);
+			*/
+			var personKey = 'vader';
+			var relations = ['parents', 'siblings', 'wife', 'husband', 'children'];
+
+			var relationships = characterHash[personKey].family;
+			var relatives     = [];
+			console.log(relationships);
+			for(i=0, j=relations.length; i<j; i++) {
+				var relation = relations[i];
+				if (relationships[relation]) {
+					for(var k=0, l=relationships[relation].length; k<l; k++) {
+						var name = relationships[relation][k];
+						relatives.push(characterHash[name]);
+					}
+				}
+			}
+			console.log(relatives);
+			listPeople('family', relatives);
+
+
+		}
+		
+		
+		function listPeople(listId, reps) {
+			var listOfPeople = document.getElementById(listId);
+			var i,j, rep;
+			var buffer = [];
+			if (listOfPeople) {
+				for (i=0, j=reps.length; i<j; i++) {
+					rep = reps[i];
+					buffer.push('<li>' + rep.name + '</li>');
+				}
+				listOfPeople.innerHTML = buffer.join("\n");
+			}
+		}
+		
+		addEvent(window, 'load', initCast);
+	</script>
+</html>
