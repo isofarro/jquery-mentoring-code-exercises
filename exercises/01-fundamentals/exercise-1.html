@@ -156,17 +156,9 @@
 				 * if an item has a property of jedi, and a value of true, add them to the jedi array
 				 * then call: listPeople('jedi', jedi);
 			*/
-			
-			var i, j, character;
 			var jedi = [];
 			
 			// Insert your code here
-			for(i=0, j=characters.length; i<j; i++) {
-				character = characters[i];
-				if (character && character.jedi) {
-					jedi.push(character);
-				}
-			}
 			
 			listPeople('jedi', jedi);			
 			
@@ -179,13 +171,8 @@
 					  character, and add then to the characterHash object
 			*/
 			var characterHash={};
-			
-			// Insert your code here
-			for(i=0, j=characters.length; i < j; i++) {
-				character = characters[i];
-				characterHash[character.key] = character;
-			}
 
+			// Insert your code here
 
 			
 			/* 
@@ -200,17 +187,7 @@
 			var relatives = [];
 
 			// Insert your code here
-			var relationships = characterHash[personKey].family;
-			for(i=0, j=relations.length; i<j; i++) {
-				var relation = relations[i];
-				if (relationships[relation]) {
-					for(var k=0, l=relationships[relation].length; k<l; k++) {
-						var name = relationships[relation][k];
-						relatives.push(characterHash[name]);
-					}
-				}
-			}
-	
+
 			listPeople('family', relatives);
 
 
